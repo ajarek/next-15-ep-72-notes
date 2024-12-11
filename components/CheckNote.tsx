@@ -1,23 +1,37 @@
-'use client'
-import { useRouter } from 'next/navigation'
+"use client"
+import { useRouter } from "next/navigation"
 import { Button } from "./ui/button"
 import { Check } from "lucide-react"
-import { useState } from 'react'
 
-const CheckNote = ({text,color}:{text:string,color:string}) => {
-    const router = useRouter()
-    const [notes, setNotes] = useState<{text: string, color: string}[]>([]);
-    const handleCheckNote =()=>{
-        const newNote={
-            text:text,
-            color:color
-       } 
-           setNotes([...notes,newNote])
-           localStorage.setItem('notes',JSON.stringify(notes))
-            router.push('/')
+
+const CheckNote = ({ text, color }: { text: string; color: string }) => {
+  const storage = localStorage.getItem("notes")
+  const router = useRouter()
+  
+  const handleCheckNote = () => {
+    const newNote = {
+      text: text,
+      color: color,
+      date: new Date().toISOString(),
     }
+    if (storage) {
+      const notes = JSON.parse(storage)
+      notes.push(newNote)
+      localStorage.setItem("notes", JSON.stringify(notes))
+      router.push("/")
+      return
+    }
+    localStorage.setItem("notes", JSON.stringify([newNote]))
+    router.push("/")
+  }
   return (
-    <Button onClick={handleCheckNote} size="icon" className='absolute right-1 top-1 rounded-full shadow-sm'><Check /></Button>
+    <Button
+      onClick={handleCheckNote}
+      size='icon'
+      className='absolute right-1 top-1 rounded-full shadow-sm'
+    >
+      <Check />
+    </Button>
   )
 }
 
