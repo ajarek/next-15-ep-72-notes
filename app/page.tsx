@@ -23,7 +23,7 @@ export default async function Home({
       <div className='flex flex-wrap gap-4'>
         {add === "true" && (
           <div
-            className='relative flex items-center  w-60 h-60 rounded-lg bg-slate-200 overflow-y-auto'
+            className='relative flex items-center  w-60 h-60 rounded-lg bg-slate-200 overflow-y-auto scrollbar'
             style={{ backgroundColor: color ?? "bg-slate-200" }}
           >
             <TextNote />
@@ -36,7 +36,7 @@ export default async function Home({
             </Link>
           </div>
         )}
-       <GetNotes/>
+       <GetNotes query={query ?? ""}/>
       </div>
     </div>
   )

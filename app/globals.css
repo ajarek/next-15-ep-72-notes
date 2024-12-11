@@ -70,3 +70,10 @@ body {
     @apply bg-background text-foreground;
   }
 }
+.scrollbar::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 2px;
+  }
+  .scrollbar::-webkit-scrollbar-track {
+    background: hsl(262.1 83.3% 57.8%);
+    }

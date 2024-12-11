@@ -3,7 +3,7 @@ import React from "react"
 import { Button } from "./ui/button"
 import { X } from "lucide-react"
 
-const GetNotes = () => {
+const GetNotes = ({ query }: { query: string }) => {
   const notes = JSON.parse(localStorage.getItem("notes")!) as {
     text: string
     color: string
@@ -14,6 +14,7 @@ const GetNotes = () => {
     <>
       {notes ? (
         notes
+        .filter(pd => !query || pd.text?.toLowerCase().includes(query.toLowerCase()))
           .sort((a, b) => b.date.localeCompare(a.date))
           .map(
             (
@@ -21,7 +22,7 @@ const GetNotes = () => {
               index: number
             ) => (
               <div
-                className='relative flex  flex-col items-start justify-between  w-60 h-60 rounded-lg bg-slate-200 p-4 overflow-y-auto'
+                className='relative flex  flex-col items-start justify-between  w-60 h-60 rounded-lg bg-slate-200 p-4 overflow-y-auto scrollbar'
                 style={{ backgroundColor: note.color }}
                 key={index}
               >
