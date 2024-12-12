@@ -2,26 +2,19 @@
 import { useRouter } from "next/navigation"
 import { Button } from "./ui/button"
 import { Check } from "lucide-react"
+import { saveStorage } from "@/lib/localStorage"
 
 
 const CheckNote = ({ text, color }: { text: string; color: string }) => {
-  const storage = localStorage.getItem("notes")
   const router = useRouter()
-  
   const handleCheckNote = () => {
     const newNote = {
+      id: Date.now(),
       text: text,
       color: color,
       date: new Date().toISOString(),
     }
-    if (storage) {
-      const notes = JSON.parse(storage)
-      notes.push(newNote)
-      localStorage.setItem("notes", JSON.stringify(notes))
-      router.push("/")
-      return
-    }
-    localStorage.setItem("notes", JSON.stringify([newNote]))
+    saveStorage(newNote, "notes")
     router.push("/")
   }
   return (
