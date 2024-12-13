@@ -13,7 +13,10 @@ const Sidebar = () => {
      <Link href={`/?add=true`}  className={`${buttonVariants({
         variant: "default",
         size: "icon",
-      })} rounded-[50%] shadow-sm`}><Plus /></Link>
+        
+      })} rounded-[50%] shadow-sm`} 
+      aria-label="Add Note" 
+      ><Plus /></Link>
       <SelectColor arrayColors={arrayColors} />
     
 

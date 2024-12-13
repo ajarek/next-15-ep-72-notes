@@ -2,19 +2,20 @@
 import { useRouter } from "next/navigation"
 import { Button } from "./ui/button"
 import { Check } from "lucide-react"
-import { saveStorage } from "@/lib/localStorage"
-
+import { useNoteStore } from "@/store/notesStore"
 
 const CheckNote = ({ text, color }: { text: string; color: string }) => {
   const router = useRouter()
+  const { addItemToNote } = useNoteStore()
   const handleCheckNote = () => {
     const newNote = {
       id: Date.now(),
+      title: text,
       text: text,
       color: color,
       date: new Date().toISOString(),
     }
-    saveStorage(newNote, "notes")
+    addItemToNote(newNote)
     router.push("/")
   }
   return (
@@ -22,6 +23,7 @@ const CheckNote = ({ text, color }: { text: string; color: string }) => {
       onClick={handleCheckNote}
       size='icon'
       className='absolute right-1 top-1 rounded-full shadow-sm'
+      aria-label="Close"
     >
       <Check />
     </Button>

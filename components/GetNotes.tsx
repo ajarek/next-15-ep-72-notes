@@ -1,21 +1,16 @@
 "use client"
+
 import React from "react"
 import { Button } from "./ui/button"
 import { X } from "lucide-react"
-import { fetchStorage, deleteStorageSingle } from "@/lib/localStorage"
-import { useRouter } from "next/navigation"
+import { useNoteStore } from "@/store/notesStore"
 
 const GetNotes = ({ query }: { query: string }) => {
-  const router=useRouter()
-  const notes = fetchStorage("notes") as {
-    text: string
-    color: string
-    date: string
-    id: number
-  }[] || []
+  
+  const {removeItemFromNote, items: notes} = useNoteStore()
 
   return (
-    <>
+    <div className="flex flex-wrap justify-center gap-4">
       {notes ? (
         notes
           .filter(
@@ -40,7 +35,8 @@ const GetNotes = ({ query }: { query: string }) => {
                     size='icon'
                     variant={"destructive"}
                     className='rounded-full'
-                    onClick={() => {deleteStorageSingle(note.id, "notes");router.push("/") }}
+                    onClick={() => removeItemFromNote(note.id) }
+                    aria-label="Close"
                   >
                     <X  />
                   </Button>
@@ -51,7 +47,7 @@ const GetNotes = ({ query }: { query: string }) => {
       ) : (
         <p className='text-center text-xl text-red-700'>No notes found</p>
       )}
-    </>
+    </div>
   )
 }
 

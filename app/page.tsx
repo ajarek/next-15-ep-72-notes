@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { PanelLeftClose, Search as SearchIcon } from "lucide-react"
 import Link from "next/link"
 
+
 export default async function Home({
   searchParams,
 }: {
@@ -13,7 +14,7 @@ export default async function Home({
 }) {
   const { query, color, add, text } = await searchParams
   return (
-    <div className='w-full flex flex-col items-start justify-start min-h-screen px-4 gap-6'>
+    <div className='w-full flex flex-col items-start justify-start min-h-screen px-4 py-4 gap-6'>
       <div className='relative h-12 flex items-center justify-between w-full gap-4'>
         <Search />
         <Button>Login</Button>
@@ -31,6 +32,7 @@ export default async function Home({
             <Link
               href='/'
               className='absolute right-1 bottom-1 rounded-full shadow-sm'
+              aria-label="Close"
             >
               <PanelLeftClose size={32} />
             </Link>
