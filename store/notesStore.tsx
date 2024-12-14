@@ -7,6 +7,7 @@ export type Item = {
   text: string
   color: string
   date: string
+  user: string
 }
 
 type ItemState = {

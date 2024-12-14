@@ -5,7 +5,7 @@ import { Button } from "./ui/button"
 import { X } from "lucide-react"
 import { useNoteStore } from "@/store/notesStore"
 
-const GetNotes = ({ query }: { query: string }) => {
+const GetNotes = ({ query,user }: { query: string, user:string }) => {
   
   const {removeItemFromNote, items: notes} = useNoteStore()
 
@@ -13,6 +13,7 @@ const GetNotes = ({ query }: { query: string }) => {
     <div className="flex flex-wrap justify-center gap-4">
       {notes ? (
         notes
+          .filter((pd) => pd.user === user)
           .filter(
             (pd) =>
               !query || pd.text?.toLowerCase().includes(query.toLowerCase())

@@ -4,4 +4,5 @@ export type Notes = {
     text: string
     color: string
     date: string
+    user: string
 }

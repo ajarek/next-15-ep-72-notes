@@ -4,11 +4,12 @@ import { Button } from "./ui/button"
 import { Check } from "lucide-react"
 import { useNoteStore } from "@/store/notesStore"
 
-const CheckNote = ({ text, color }: { text: string; color: string }) => {
+const CheckNote = ({ text, color, user }: { text: string; color: string; user: string }) => {
   const router = useRouter()
   const { addItemToNote } = useNoteStore()
   const handleCheckNote = () => {
     const newNote = {
+      user: user,
       id: Date.now(),
       title: text,
       text: text,
@@ -16,7 +17,7 @@ const CheckNote = ({ text, color }: { text: string; color: string }) => {
       date: new Date().toISOString(),
     }
     addItemToNote(newNote)
-    router.push("/")
+    router.push("/dashboard")
   }
   return (
     <Button

@@ -1,45 +1,17 @@
-import CheckNote from "@/components/CheckNote"
-import GetNotes from "@/components/GetNotes"
-import { Search } from "@/components/Search"
-import TextNote from "@/components/TextNote"
-import { Button } from "@/components/ui/button"
-import { PanelLeftClose, Search as SearchIcon } from "lucide-react"
-import Link from "next/link"
+import Image from "next/image";
+import Link from "next/link";
 
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Promise<{ query?: string; color?: string; add?: string; text?: string }>
-}) {
-  const { query, color, add, text } = await searchParams
+
+export default async function Home() {
   return (
-    <div className='w-full flex flex-col items-start justify-start min-h-screen px-4 py-4 gap-6'>
-      <div className='relative h-12 flex items-center justify-between w-full gap-4'>
-        <Search />
-        <Button>Login</Button>
-        <SearchIcon className='absolute left-3' />
+    <div className='w-full min-h-screen flex flex-col items-center justify-center'>
+      <Link href={'/dashboard'}>
+       <h1 className="text-3xl text-center font-semibold mb-4">Open Your Notes</h1>
+       <div className="relative w-[200px] h-[200px]">
+        <Image src={'/logo.png'} alt='logo' fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" priority />
       </div>
-      <h1 className='text-3xl '>Notes</h1>
-      <div className='flex flex-wrap gap-4'>
-        {add === "true" && (
-          <div
-            className='relative flex items-center  w-60 h-60 rounded-lg bg-slate-200 overflow-y-auto scrollbar'
-            style={{ backgroundColor: color ?? "bg-slate-200" }}
-          >
-            <TextNote />
-            <CheckNote text={text ?? ""} color={color ?? "bg-slate-200"} />
-            <Link
-              href='/'
-              className='absolute right-1 bottom-1 rounded-full shadow-sm'
-              aria-label="Close"
-            >
-              <PanelLeftClose size={32} />
-            </Link>
-          </div>
-        )}
-       <GetNotes query={query ?? ""}/>
-      </div>
+      </Link>
     </div>
   )
 }
