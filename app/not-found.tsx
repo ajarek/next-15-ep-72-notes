@@ -1,22 +1,27 @@
-import Link from 'next/link'
+"use client"
 
-export default function NotFound() {
+import { useRouter } from "next/navigation"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+
+const NotFoundPage = () => {
+  const router = useRouter()
   return (
-    <main className='  min-h-[calc(100vh-64px)] w-full flex flex-col items-center justify-center '>
-      <>
-        <h2 className='text-3xl'>There was a problem.</h2>
-        <p>We could not find the page you were looking for.</p>
-        <p>
-          Go back to the{' '}
-          <Link
-            className='underline text-green-700 text-xl'
-            href='/'
-          >
-            Home
-          </Link>
-          .
-        </p>
-      </>
-    </main>
+    <div className='w-full container min-h-screen flex flex-col items-center justify-center gap-4 p-4'>
+      <Image src='/notfound.jpeg' alt='404' width={400} height={266} priority/>
+      <h1 className='text-center text-xl font-semibold'>Page your are trying to access could not be found</h1>
+      <p className='text-center'>
+        The page you are looking for might have been removed, had its name
+        changed or is temporarily unavailable.
+      </p>
+      <div className=''>
+        <Button
+          onClick={() => { router.push("/dashboard") }}
+        >
+          Go to Home
+        </Button>
+      </div>
+    </div>
   )
 }
+export default NotFoundPage

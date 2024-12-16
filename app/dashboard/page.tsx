@@ -7,7 +7,7 @@ import { auth } from "@/app/api/auth/auth"
 import { redirect } from "next/navigation"
 import { Session } from "next-auth"
 import Logout from "@/components/Logout"
-import {getAllNotes} from "@/lib/action"
+import { getAllNotes } from "@/lib/action"
 
 const Dashboard = async ({
   searchParams,
@@ -27,7 +27,7 @@ const Dashboard = async ({
   }
 
   const { query, color, add } = await searchParams
-  const notes = await getAllNotes() 
+  const notes = await getAllNotes()
   return (
     <div className='w-full flex flex-col items-start justify-start min-h-screen px-4 py-4 gap-6'>
       <div className='relative h-12 flex items-center justify-between w-full gap-4'>
@@ -53,7 +53,11 @@ const Dashboard = async ({
             </Link>
           </div>
         )}
-        <GetNotes query={query ?? ""} user={user?.name ?? ""} notes={JSON.parse(JSON.stringify(notes))} />
+        <GetNotes
+          query={query ?? ""}
+          user={user?.name ?? ""}
+          notes={JSON.parse(JSON.stringify(notes))}
+        />
       </div>
     </div>
   )
