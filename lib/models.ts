@@ -12,13 +12,19 @@ export type User = {
 export type UserWithoutId = Omit<User, "_id">
 
 export type Notes = {
-  _id: string
+ 
   text: string
   color: string
   user: string
-  createdAt: Date
+  
 }
-export type NotesWithoutId = Omit<Notes, "_id" | "createdAt">
+export type NotesDatabase = {
+  _id: string
+  createdAt:string
+  text:string
+  color: string
+  user: string
+}
 
 
 const userSchema = new mongoose.Schema(

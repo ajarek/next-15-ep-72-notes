@@ -86,9 +86,21 @@ export const getAllNotes = async () => {
   try {
     await connectToDb()
     const notes = await Notes.find({}).lean()
-    console.log('Notes', notes)
     return notes
   } catch (err) {
     console.log(err)
+  }
+}
+
+export const deleteNoteId = async (formData: FormData) => {
+  const id = formData.get('_id')
+
+  try {
+    await connectToDb()
+    await Notes.findOneAndDelete({ _id: id })
+    revalidatePath('/dashboard')
+    return { message: `Deleted record ${id}` }
+  } catch (err) {
+    return { message: 'Failed to delete record'+err }
   }
 }

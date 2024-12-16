@@ -6,21 +6,22 @@ import { Textarea } from "./ui/textarea"
 import { Button } from "./ui/button"
 import { addNote } from "@/lib/action"
 import type { Notes } from "@/lib/models"
+import { useRouter } from "next/navigation"
 
 const TextNote = ({ color, user }: { color: string; user: string }) => {
+  const router = useRouter()
   return (
     <form
       action={async (formData: FormData) => {
         const noteData: Notes = {
-          _id: '', // You might want to generate a unique ID here
-          text: formData.get('text') as string,
-          color: formData.get('color') as string,
-          user: formData.get('user') as string,
-          createdAt: new Date(), // Add current timestamp
+          text: formData.get("text") as string,
+          color: formData.get("color") as string,
+          user: formData.get("user") as string,
         }
         await addNote(noteData)
+        router.push("/dashboard?add=false")
       }}
-      className='relative w-full h-full'
+      className='relative w-full h-full '
     >
       <input type='hidden' value={user} name='user' />
 
@@ -30,6 +31,7 @@ const TextNote = ({ color, user }: { color: string; user: string }) => {
         placeholder='Write something...'
         defaultValue=''
         name='text'
+        autoFocus
       />
       <Button
         type='submit'
