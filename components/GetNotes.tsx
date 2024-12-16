@@ -1,13 +1,13 @@
 "use client"
 
 import React from "react"
-import { Button } from "./ui/button"
 import { X } from "lucide-react"
-import { useNoteStore } from "@/store/notesStore"
+import { Notes } from "@/lib/models"
+import Link from "next/link"
 
-const GetNotes = ({ query,user }: { query: string, user:string }) => {
+const GetNotes = ({ query,user, notes }: { query: string, user:string, notes:Notes[] }) => {
   
-  const {removeItemFromNote, items: notes} = useNoteStore()
+ 
 
   return (
     <div className="flex flex-wrap justify-center gap-4">
@@ -18,29 +18,27 @@ const GetNotes = ({ query,user }: { query: string, user:string }) => {
             (pd) =>
               !query || pd.text?.toLowerCase().includes(query.toLowerCase())
           )
-          .sort((a, b) => b.date.localeCompare(a.date))
+          // .sort((a, b) => b.createdAt.localeCompare(a.createdAt))    
           .map(
-            (
-              note: { text: string; color: string; date: string; id: number },
-              index: number
-            ) => (
+            (note:Notes) => 
+              (
               <div
                 className='relative flex  flex-col items-start justify-between  w-60 h-60 rounded-lg bg-slate-200 p-4 overflow-y-auto scrollbar'
                 style={{ backgroundColor: note.color }}
-                key={index}
+                key={note._id}
               >
                 <p className='text-xl'>{note.text}</p>
                 <div className='w-full flex justify-between items-center  '>
-                  <p className=''>{note.date.slice(0, 10)}</p>
-                  <Button
-                    size='icon'
-                    variant={"destructive"}
+                  <p className=''>{note.createdAt.toLocaleString()}</p>
+                  <Link 
+                   href={`/delete-note}`}
+                   
                     className='rounded-full'
-                    onClick={() => removeItemFromNote(note.id) }
+                   
                     aria-label="Close"
                   >
                     <X  />
-                  </Button>
+                  </Link>
                 </div>
               </div>
             )
